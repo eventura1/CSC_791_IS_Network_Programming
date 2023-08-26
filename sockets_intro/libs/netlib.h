@@ -50,6 +50,7 @@ void fatal (char *message)
     strcpy(error_message, "[!!] Fatal Error ");
     strncat(error_message, message, 83);
     perror(error_message);
+    printf("Exiting...");
     exit(-1);
 }
 
