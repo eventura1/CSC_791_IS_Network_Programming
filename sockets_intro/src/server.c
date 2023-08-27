@@ -15,10 +15,10 @@ int main(void)
     int sockfd;         //file descriptor returned by socket, used for listen socket
     int new_sockfd;     //new connection socket
     
-    //This structure has been updated, read Beej's
+    //This structure has been updated, read Beej's where it shows how to use getaddrinfo() to fill it out
     struct sockaddr_in host_addr, client_addr;      //address information
     socklen_t sin_size;
-    int recv_len = 1;
+    long int recv_len = 1;
     int yes = 1;
     char buffer[BUF_SIZE];
 
@@ -75,7 +75,7 @@ int main(void)
         recv_len = recv(new_sockfd, &buffer, BUF_SIZE, 0);
         while(recv_len > 0) //while there is more data to receive, keep processing
         {
-            printf("RECV: %d bytes\n", recv_len);
+            printf("RECV: %ld bytes\n", recv_len);
             dump(buffer, recv_len);
             recv_len = recv(new_sockfd, &buffer, BUF_SIZE, 0);
         }
