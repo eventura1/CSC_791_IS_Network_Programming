@@ -13,7 +13,8 @@ int main()
     memset(&hints, 0, sizeof(hints));       //empty structure
     hints.ai_family = AF_UNSPEC;            //let the system determine the protocol for the address
     hints.ai_socktype = SOCK_STREAM;        //TCP socket
-    hints.ai_flags = AI_PASSIVE;            //fill in my IP for me
+    hints.ai_flags = AI_PASSIVE;            //fill in my IP for me. We can use this field to specify
+                                        //if we want our program to listen on a specific address.
 
     //AI_PASSIVE tells getaddrinfo to assign the address of the local host to the socket (avoids hardcoding it)
     // as such, need to set node param in getaddrinfo to NULL. Can use a specific address there instead of NULL and setting AI_PASSIVE
