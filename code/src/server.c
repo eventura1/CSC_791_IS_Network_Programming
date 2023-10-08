@@ -7,25 +7,11 @@
 #include <signal.h>
 #include <sys/wait.h>
 #include <time.h>
+
 #define PORT "3490"     //listen port
 #define BACKLOG 10      //how many pending connections queue will hold
 
 
-// void sigchld_handler(int s)
-// {
-//     int saved_errno = errno;
-
-//     while(waitpid (-1, NULL, WNOHANG) > 0)
-//         ;
-//     errno = saved_errno;
-    
-// }
-
-
-void returnTime()
-{
-
-}
 int main()
 {
     server_start(PORT);
