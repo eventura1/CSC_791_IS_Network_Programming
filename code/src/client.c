@@ -2,21 +2,22 @@
 
 
 /*
-    A tcp client that connects to a TCP server listening on a given port.
+    A tcp client that connects to a TCP server listening on a given port and receives data sent to it.
+    Only receives data sent in one stream, doesn't implemente a recv()/send() loop.
 */
 
 //helper functions
 // get sockaddr, IPv4 or IPv6:
-void *get_in_addr(struct sockaddr *sa)
-{
-    if (sa->sa_family == AF_INET)
-    {
-        return &(((struct sockaddr_in*) sa)->sin_addr);
-    }
+// void *get_in_addr(struct sockaddr *sa)
+// {
+//     if (sa->sa_family == AF_INET)
+//     {
+//         return &(((struct sockaddr_in*) sa)->sin_addr);
+//     }
 
-    return &(((struct sockaddr_in6*)sa)->sin6_addr);
+//     return &(((struct sockaddr_in6*)sa)->sin6_addr);
 
-}
+// }
 
 //#define PORT 3490
 
@@ -28,7 +29,6 @@ int main(int argc, char *argv[])
     if(argc != 3)
     {
         fprintf(stderr, "usage: client IP |client hostname port\n");
-        printf("argc = %d\n", argc);
         exit(1);
     }
     client_start();
@@ -130,19 +130,27 @@ int main(int argc, char *argv[])
     //So the system could very well return IPv6 or IPv4 as well as multiple addresses.
     //we need to loop through the addrinfo structure and pick one.
     int remoteSockfd;
-    for(p = servinfo; p != NULL; p->ai_next)
+    //doesn't handle the case when a server isn't listening
+    for(p = servinfo; p != NULL; p = p->ai_next)
     {
         if( (remoteSockfd = socket(p->ai_family, p->ai_socktype, p->ai_protocol)) == -1 )
         {
-            perror("client: socket");
+            perror("client: socket()");
             continue;
         }
 
         //3. connect()
-        if (connect(remoteSockfd, p->ai_addr, p->ai_addrlen) == -1)
+        result = connect(remoteSockfd, p->ai_addr, p->ai_addrlen);
+        if ( result == -1)
         {
             close(remoteSockfd);
-            perror("client: connect");
+            perror("client: connect().");
+            fprintf(stderr, "connect(): %s\n", gai_strerror(result));
+            if (remoteSockfd == ECONNREFUSED)
+            {
+                fprintf(stderr, "Remote address is not listening. Exiting ...\n");
+                exit(1);
+            }
             continue;;
         }
         //if we get here we found a valid address to use.

@@ -80,5 +80,45 @@ void client_stop()
     printf("[*] Client Stopping\n");
 }
 
+void *get_in_addr(struct sockaddr *sa)
+{
+    if (sa->sa_family == AF_INET)
+    {
+        return &(((struct sockaddr_in*) sa)->sin_addr);
+    }
+
+    return &(((struct sockaddr_in6*)sa)->sin6_addr);
+
+}
+
+
+void print_remote_address(struct sockaddr_storage addr)
+{
+    printf("In print_remote_address\n");
+    char address_buffer[100];
+    char service_buffer[100];
+    socklen_t addr_len = sizeof(addr);
+    
+    int result = getnameinfo
+    (
+        (struct sockaddr*) &addr,
+        addr_len,
+        address_buffer,
+        sizeof(address_buffer),
+        service_buffer,
+        sizeof(service_buffer),
+        NI_NUMERICHOST
+    );
+    if (result != 0)
+    {
+        fprintf(stderr,"getnameinfo() failed. Error: (%s)\n", gai_strerror(result));
+
+    }
+    else
+        printf("Connection from %s: %s\n", address_buffer, service_buffer);
+
+}
+
+
 
 #endif //NET_LIB_H
