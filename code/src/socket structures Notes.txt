@@ -1,0 +1,46 @@
+From: /usr/include/netdb.h
+/* Structure to contain information about address of a service provider.  */
+
+struct addrinfo
+{
+  int ai_flags;			/* Input flags.  */
+  int ai_family;		/* Protocol family for socket.  */ (IPv4 or IPv6 or AF_UNSPEC)
+  int ai_socktype;		/* Socket type.  */
+  int ai_protocol;		/* Protocol for socket.  */
+  socklen_t ai_addrlen;		/* Length of socket address.  */
+  struct sockaddr *ai_addr;	/* Socket address for socket.  */
+  char *ai_canonname;		/* Canonical name for service location.  */
+  struct addrinfo *ai_next;	/* Pointer to next in list.  */ 
+
+        //linked list pointing to next element, that is an call to getaddrinfo can return a list
+        //of multiple addresses, each referenced by a separate addrinfo struct
+};
+
+
+/* Structure describing a generic socket address.  */
+struct sockaddr
+  {
+    __SOCKADDR_COMMON (sa_);	/* Common data: address family and length.  */
+    char sa_data[14];		/* Address data.  */
+                            //contains a destination address and port for the socket.
+  };
+
+
+getaddrinfo() is used to fill the previous structures with teh relevant data.
+
+
+
+Helps with dealing with struct sockaddr. in stands for "internet".
+And this is the important bit: a pointer to a struct sockaddr_in can be cast to a pointer to a struct
+sockaddr and vice-versa. So even though connect() wants a struct sockaddr*, you can still use a
+struct sockaddr_in and cast it at the last minute!
+
+This structure makes it easier to access members of sockaddr (easy to see why)
+
+/* Structure describing an Internet socket address.  */
+struct sockaddr_in {
+    sa_family_t     sin_family;     /* AF_INET */
+    in_port_t       sin_port;       /* Port number */
+    struct in_addr  sin_addr;       /* IPv4 address */
+};
+//In short, this structure holds an IP address and port for either an IPv4 or IPv6 address.

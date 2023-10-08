@@ -7,16 +7,15 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <netinet/in.h>
-#include <arpa/inet.h>
 #include <unistd.h>
-//
+#include <errno.h>
+
+//Socket related headers
+#include <arpa/inet.h>
+#include <netinet/in.h>
 #include <netdb.h>
-#include <sys/types.h>
 #include <sys/socket.h>
-
-
-
+#include <sys/types.h>
 
 
 //Utility functions
@@ -60,6 +59,7 @@ void fatal (char *message)
 
 void server_start(char *msg)
 {
+    printf("[*] Ready to use socket API.\n");
     printf("[*] Server starting on port: %s\n", msg);
 }
 
@@ -71,6 +71,7 @@ void server_stop()
 
 void client_start()
 {
+    printf("[*] Ready to use socket API.\n");
     printf("[*] Client starting\n");
 }
 
