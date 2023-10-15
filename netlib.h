@@ -20,8 +20,8 @@
 
 //Utility functions
 #ifdef DEBUG
-#define TRACE_ENTER() printf("[*]ENTER: %s\n", __func__);
-#define TRACE_EXIT() printf("[*]EXIT: %s\n", __func__);
+#define TRACE_ENTER() printf("[*]ENTER: %s()\n", __func__);
+#define TRACE_EXIT() printf("[*]EXIT: %s()\n", __func__);
 #else
 #define TRACE_ENTER() do {} while (0)
 #define TRACE_EXIT() do {} while (0);
@@ -55,10 +55,13 @@ void dump(const unsigned char *data_buffer, const unsigned int length)
 
 int handle_socket_err(char *func, int result, int error)
 {
+    TRACE_ENTER();
     if(result < 0)
         fprintf(stderr, "%s() error: %s\n", func, strerror(error));
+    
+    TRACE_EXIT();
     return 1;
-
+    
 }
 
 //utility function to display error messages
@@ -134,6 +137,7 @@ void print_remote_addr_info(struct addrinfo *addr)
 
 void print_remote_address(struct sockaddr_storage addr)
 {
+    TRACE_ENTER();
     //printf("In print_remote_address\n");
     char address_buffer[100];
     char service_buffer[100];
@@ -155,8 +159,9 @@ void print_remote_address(struct sockaddr_storage addr)
 
     }
     else
-        printf("Connection from %s: %s\n", address_buffer, service_buffer);
+        printf("Connection from %s:%s\n", address_buffer, service_buffer);
 
+    TRACE_EXIT();
 }
 
 /*
