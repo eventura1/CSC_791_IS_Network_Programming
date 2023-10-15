@@ -83,6 +83,8 @@ int main(int argc, char *argv[])
     //getaddrinfo() makes a call and reaches out 
     if( (result = getaddrinfo(node, port, &hints, &servinfo)) != 0 )
     {
+        //gai_strerror() is used to get errors returned by getaddrinfo() and freeaddrinfo()
+        //for socket related functions use perror() or strerror().
         fprintf(stderr, "getaddrinfo: %s\n", gai_strerror(result));
         return -1;
     }
@@ -144,8 +146,9 @@ int main(int argc, char *argv[])
         if ( result == -1)
         {
             close(remoteSockfd);
+            
+            //fprintf(stderr, "connect(): %s\n", gai_strerror(result));
             perror("client: connect().");
-            fprintf(stderr, "connect(): %s\n", gai_strerror(result));
             if (remoteSockfd == ECONNREFUSED)
             {
                 fprintf(stderr, "Remote address is not listening. Exiting ...\n");

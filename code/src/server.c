@@ -73,7 +73,8 @@ int main()
     //check for error
     if(listen_sockfd == -1)
     {
-        fprintf(stderr, "socket() error. (%s)\n", gai_strerror(result));
+        //fprintf(stderr, "socket() error. (%s)\n", gai_strerror(result));
+        perror("socket() error.\n");
         return 1;
     }
 
@@ -83,12 +84,17 @@ int main()
     
     if(result == -1)
     {
-        fprintf(stderr, "bind() error. (%s)\n", gai_strerror(result));
+        //fprintf(stderr, "bind() error. (%s)\n", gai_strerror(result));
+        perror("bind() error.\n");
         close(listen_sockfd);
         return 1;
     }
-    printf("Socket bound()\n");
+    // fprintf(stderr, "result == %d\n",result);
+    // printf("Socket bound()\n");
     freeaddrinfo(bind_address);
+    // fprintf(stderr, "some error after binding\n");
+    // perror("error bounding.\n");
+    // printf("an error: %s\n", strerror(errno));
     //we can now listen
     //4. listen()
     //prior to this call listen_sockfd was an active socket.
@@ -96,7 +102,8 @@ int main()
     result = listen(listen_sockfd, BACKLOG);
     if (result == -1)
     {
-        fprintf(stderr, "listen() error. (%s)\n", gai_strerror(result));
+        //fprintf(stderr, "listen() error. (%s)\n", gai_strerror(result));
+        perror("listen() error.\n");
         close(listen_sockfd);
         return 1;
     }
@@ -109,7 +116,8 @@ int main()
     printf("Accepting()...\n");
     if(client_sockfd == -1)
     {
-        fprintf(stderr, "accept() error. (%s)\n", gai_strerror(result));
+        //fprintf(stderr, "accept() error. (%s)\n", gai_strerror(result));
+        perror("accept() error.\n");
         close(listen_sockfd);
         close(client_sockfd);
         return 1;
@@ -153,6 +161,29 @@ int main()
     /////////
     close(client_sockfd);
     close(listen_sockfd);
+    // result = getaddrinfo(NULL, PORT, &hints, &bind_address);
+    // if(result != 0)
+    // {
+    //     fprintf(stderr, "getaddrinfo(): %s\n", gai_strerror(result));
+    //         return 1;
+    // }
+
+    // printf("getaddrinfo() success\n");
+
+    
+    // for(int i = 0; i < 10; i++)
+    // {
+    //     listen_sockfd = socket(bind_address->ai_family, bind_address->ai_socktype, bind_address->ai_protocol);
+    //     //check for error
+    //     if(listen_sockfd == -1)
+    //     {
+    //         fprintf(stderr, "socket() error. (%s)\n", gai_strerror(result));
+    //         return 1;
+    //     }
+    //     printf("sockID: %ld\n", listen_sockfd);
+    //     close(listen_sockfd);
+    // }
+    freeaddrinfo(bind_address);
     server_stop();
     return 0;
 }

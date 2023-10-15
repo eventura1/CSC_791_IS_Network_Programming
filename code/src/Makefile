@@ -15,6 +15,12 @@ server_loop: $(SRC_DIR)/server_loop.c
 client: $(SRC_DIR)/client.c
 	$(CC) $(CFLAGS) -o $(BIN_DIR)/client $(SRC_DIR)/client.c
 
+tcpclient: $(SRC_DIR)/tcpclient.c
+	$(CC) $(CFLAGS) -o $(BIN_DIR)/tcpclient $(SRC_DIR)/tcpclient.c
+
+tcpclient_debug: $(SRC_DIR)/tcpclient.c
+	$(CC) $(CFLAGS) -g -DDEBUG -o $(BIN_DIR)/tcpclient $(SRC_DIR)/tcpclient.c
+
 showip: $(SRC_DIR)/showip.c
 	$(CC) $(CFLAGS) -o $(BIN_DIR)/showip $(SRC_DIR)/showip.c
 
