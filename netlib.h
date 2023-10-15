@@ -53,6 +53,14 @@ void dump(const unsigned char *data_buffer, const unsigned int length)
     } // End for
 }
 
+int handle_socket_err(char *func, int result, int error)
+{
+    if(result < 0)
+        fprintf(stderr, "%s() error: %s\n", func, strerror(error));
+    return 1;
+
+}
+
 //utility function to display error messages
 void fatal (char *message)
 {
@@ -60,7 +68,7 @@ void fatal (char *message)
     strcpy(error_message, "[!!] Fatal Error ");
     strncat(error_message, message, 83);
     perror(error_message);
-    printf("Exiting...");
+    //printf("Exiting...");
     exit(-1);
 }
 

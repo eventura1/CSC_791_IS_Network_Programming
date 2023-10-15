@@ -63,7 +63,6 @@ int main()
     }
 
     printf("getaddrinfo() success\n");
-
     
     //2. socket()
 
@@ -77,6 +76,7 @@ int main()
         perror("socket() error.\n");
         return 1;
     }
+    
 
     //3. bind()
     printf("Binding socket ...\n");
