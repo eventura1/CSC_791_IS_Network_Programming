@@ -110,11 +110,10 @@ void *get_in_addr(struct sockaddr *sa)
 
 void print_remote_addr_info(struct addrinfo *addr)
 {
-    printf("In print_remote_addr_info()\n");
+    TRACE_ENTER();
+
     char address_buffer[100];
     char service_buffer[100];
-    
-    printf("Calling getnameinfo()\n");
     int result = getnameinfo
     (
         addr->ai_addr,
@@ -133,6 +132,7 @@ void print_remote_addr_info(struct addrinfo *addr)
     else
         printf("Connecting to %s:%s\n", address_buffer, service_buffer);
 
+    TRACE_EXIT();
 }
 
 void print_remote_address(struct sockaddr_storage addr)
@@ -476,6 +476,8 @@ int select_loop(int sockfd)
     return ret_val;
 }
 
+
+void config_addr_info_struct(struct addrinfo *addr_struct)
 
 
 

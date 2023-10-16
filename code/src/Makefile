@@ -30,6 +30,19 @@ tcpserver_multiplex: $(SRC_DIR)/tcpserver_multiplex.c
 tcpserver_multiplex_debug: $(SRC_DIR)/tcpserver_multiplex.c
 	$(CC) $(CFLAGS) -g -DDEBUG -o $(BIN_DIR)/tcpserver_multiplex_debug $(SRC_DIR)/tcpserver_multiplex.c
 
+udpclient1: $(SRC_DIR)/udpclient1.c
+	$(CC) $(CFLAGS) -o $(BIN_DIR)/udpclient1 $(SRC_DIR)/udpclient1.c
+
+udp_recvfrom: $(SRC_DIR)/udp_recvfrom.c
+	$(CC) $(CFLAGS) -o $(BIN_DIR)/udp_recvfrom $(SRC_DIR)/udp_recvfrom.c
+
+udp_sendto: $(SRC_DIR)/udp_sendto.c
+	$(CC) $(CFLAGS) -o $(BIN_DIR)/udp_sendto $(SRC_DIR)/udp_sendto.c	
+
+udp_serve_toupper: $(SRC_DIR)/udp_serve_toupper.c
+	$(CC) $(CFLAGS) -o $(BIN_DIR)/udp_serve_toupper $(SRC_DIR)/udp_serve_toupper.c	
+
+
 clean:
 	rm -f $(BIN_DIR)/*
 	
