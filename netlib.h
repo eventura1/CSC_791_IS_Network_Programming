@@ -9,6 +9,7 @@
 #include <string.h>
 #include <unistd.h>
 #include <errno.h>
+#include <ctype.h>
 
 //Socket related headers
 #include <arpa/inet.h>
@@ -476,9 +477,76 @@ int select_loop(int sockfd)
     return ret_val;
 }
 
+/*
+    configures an addrinfo structure for a UDP socket.
+    and returns (pass by reference)
+    the configured structured to the callee.
 
-void config_addr_info_struct(struct addrinfo *addr_struct)
+    @TODO: finish this.
+*/
+/*void make_udp_addrinfo_ipv4(struct addrinfo *addr_struct, int flags)
+{
+    struct addrinfo hints;
+    memset(&hints, 0, sizeof(hints));
+    hints.ai_family = AF_INET;
+    hints.ai_socktype = SOCK_DGRAM;
+    hints.ai_flags = flags;
 
+
+}
+
+*/
+
+int udp_select_loop(int socket_listen)
+{
+    TRACE_ENTER();
+    int ret_val = 1;    //1 == true;
+    int READ_SIZE = 1024;
+
+    fd_set master;
+    FD_ZERO(&master);
+    FD_SET(socket_listen, &master);
+    int max_socket = socket_listen;
+    printf("Wainting for connections ...\n");
+
+    while(1)
+    {
+        fd_set reads;   //make an fd_set to monitor reads
+        reads = master; //make copy
+
+        int result = select(max_socket + 1, &reads, 0, 0, 0);
+        if(!handle_socket_err("select", result, errno))
+            return 0;
+        
+        if (FD_ISSET(socket_listen, &reads))
+        {
+            struct sockaddr_storage client_address;
+            socklen_t client_len = sizeof(client_address);
+
+            char read[READ_SIZE];
+            int bytes_received = recvfrom(socket_listen, read, READ_SIZE, 0, (struct sockaddr*) &client_address, &client_len);
+            print_remote_address(client_address);
+            if(bytes_received < 1)
+            {
+                fprintf(stderr, "connection closed. Error (%d)\n", errno);
+                return 0;
+            }
+            printf("Received (%d bytes): %.*s", bytes_received, bytes_received, read);
+
+            for(int j = 0; j < bytes_received; ++j)
+            {
+                read[j] = toupper(read[j]) ;
+            }
+            
+            sendto(socket_listen, read, bytes_received, 0, (struct sockaddr *)&client_address, client_len);
+            printf("Sent (%d bytes): %.*s", bytes_received, bytes_received, read);
+        }//end if FD_ISSET
+
+    }//end while(1)
+
+    TRACE_EXIT();
+    return ret_val;
+}
 
 
 #endif //NET_LIB_Hdisplay how to send 
