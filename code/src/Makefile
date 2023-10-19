@@ -42,6 +42,9 @@ udp_sendto: $(SRC_DIR)/udp_sendto.c
 udp_serve_toupper: $(SRC_DIR)/udp_serve_toupper.c
 	$(CC) $(CFLAGS) -o $(BIN_DIR)/udp_serve_toupper $(SRC_DIR)/udp_serve_toupper.c	
 
+lookup: $(SRC_DIR)/lookup.c
+	$(CC) $(CFLAGS) -o $(BIN_DIR)/lookup $(SRC_DIR)/lookup.c
+
 
 clean:
 	rm -f $(BIN_DIR)/*
