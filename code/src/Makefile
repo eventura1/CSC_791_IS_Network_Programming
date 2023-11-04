@@ -45,6 +45,12 @@ udp_serve_toupper: $(SRC_DIR)/udp_serve_toupper.c
 lookup: $(SRC_DIR)/lookup.c
 	$(CC) $(CFLAGS) -o $(BIN_DIR)/lookup $(SRC_DIR)/lookup.c
 
+webget: $(SRC_DIR)/web_get.c
+	$(CC) $(CFLAGS) -o $(BIN_DIR)/webget $(SRC_DIR)/web_get.c
+
+webget_debug: $(SRC_DIR)/web_get.c
+	$(CC) $(CFLAGS) -g -DDEBUG -o $(BIN_DIR)/webget_debug $(SRC_DIR)/web_get.c
+
 
 clean:
 	rm -f $(BIN_DIR)/*

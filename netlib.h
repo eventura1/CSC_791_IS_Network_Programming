@@ -17,7 +17,7 @@
 #include <netdb.h>
 #include <sys/socket.h>
 #include <sys/types.h>
-
+#include <time.h>
 
 //Utility functions
 #ifdef DEBUG
@@ -547,6 +547,93 @@ int udp_select_loop(int socket_listen)
     TRACE_EXIT();
     return ret_val;
 }
+
+//Chapter 6 - HTTP client
+
+//////////////////HTTP Protocol Functions////////////////////
+/*
+    @brief: 
+    The function takes as input a URL, and it returns as output the hostname,
+    the port number, and the document path. To avoid needing to do manual memory management, the outputs 
+    are returned as pointers to specific parts of the input URL. The input URL is modified with 
+    terminating null pointers as required.
+
+    Args:
+        url*: The URL
+        **hostname: 
+
+    Returns:
+        N/A
+*/
+
+void parse_url(char *url, char **hostname, char **port, char** path)
+{
+    TRACE_ENTER();
+    printf("\tURL: %s\n", url);
+
+    char *p;
+    //attempt to find "://" in the URL
+    // if found, read the first part of the URL as a protocol.
+    //http://www.example.com
+    // and set p to point to the begining of "://"
+    p = strstr(url, "://");
+    char *protocol = 0;
+    if(p)
+    {
+        //set protocol to begining of the URL
+        protocol = url;
+
+        *p = 0;
+        p +=3;
+    }
+    else
+    {
+        p = url;
+    }
+
+    if (protocol)
+    {
+        if(strcmp(protocol, "http"))
+        {
+            fprintf(stderr, "Unknown protocol '%s'. Only 'http' is supported.\n",  protocol);
+            exit(1);
+        }
+    }
+
+    *hostname = p;
+    //scan for the end of the hostname by looking for specific characters.
+    while(*p && *p != ':' && *p != '/' && *p != '#')
+        ++p;
+
+    //check whether a port number was found.
+    //a port start with a colon ':'
+    *port = "80";
+    if (*p==':')
+    {
+        *p++ = 0;
+        *port = p;
+    }
+    while(*p && *p != '/' && *p != '#')
+        ++p;
+    
+    *path = p;
+    if (*p == '/')
+    {
+        *path = p + 1;
+    }
+    *p = 0;
+
+    ++p;
+    while (*p && *p != '#') ++p;
+    if (*p == '#') *p = 0;
+
+    printf("hostname: %s\n", *hostname);
+    printf("port: %s\n", *port);
+    printf("path: %s\n", *path);
+ TRACE_EXIT();
+}
+
+
 
 
 #endif //NET_LIB_Hdisplay how to send 
