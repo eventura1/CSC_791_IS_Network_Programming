@@ -41,10 +41,12 @@ int main(int argc, char *argv[])
         while(client)
         {
             struct client_info *next = client->next;
+
             if(FD_ISSET(client->socket, &reads))
             {
                 if(MAX_REQUEST_SIZE == client->received)
                 send_400(client);
+                client = next;
                 continue;
             }
 

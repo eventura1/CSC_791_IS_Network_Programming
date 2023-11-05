@@ -57,12 +57,12 @@ showip: $(DNS_SRC)/showip.c
 lookup: $(DNS_SRC)/lookup.c
 	$(CC) $(CFLAGS) -o $(BIN_DIR)/lookup $(DNS_SRC)/lookup.c
 
-web_server: $(WEB_SERVER)/web_server.c
-	$(CC) $(CFLAGS) -o $(BIN_DIR)/web_server $(WEB_SERVER)/web_server.c
 
-web_server_debug: $(WEB_SERVER)/web_server.c
+webserver_debug: $(WEB_SERVER)/web_server.c
 	$(CC) $(CFLAGS) -g -DDEBUG -o $(BIN_DIR)/web_server_debug $(WEB_SERVER)/web_server.c
 
+webserver: $(WEB_SERVER)/web_server.c
+	$(CC) $(CFLAGS) -o $(BIN_DIR)/webserver $(WEB_SERVER)/web_server.c
 
 
 clean:

@@ -232,6 +232,8 @@ void send_404(struct client_info *client)
 
 
 */
+
+
 void serve_resource(struct client_info *client, const char *path)
 {
     TRACE_ENTER();
@@ -252,8 +254,10 @@ void serve_resource(struct client_info *client, const char *path)
     }
 
     char full_path[128];
+
+    printf("doing the path thing\n");
     sprintf(full_path, "public%s", path);
-    
+    printf("Full path: %s\n", full_path);
     FILE *fp = fopen(full_path, "rb");
     if(!fp)
     {
@@ -296,5 +300,7 @@ void serve_resource(struct client_info *client, const char *path)
     drop_client(client);
     TRACE_EXIT();
 }
+
+
 
 #endif
