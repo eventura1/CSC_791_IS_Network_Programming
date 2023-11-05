@@ -54,11 +54,11 @@ void dump(const unsigned char *data_buffer, const unsigned int length)
     } // End for
 }
 
-int handle_socket_err(char *func, int result, int error)
+int handle_socket_err(char *func, int result, int error_number)
 {
     TRACE_ENTER();
     if(result < 0)
-        fprintf(stderr, "%s() error: %s\n", func, strerror(error));
+        fprintf(stderr, "%s() error: %s\n", func, strerror(error_number));
     
     TRACE_EXIT();
     return 1;
@@ -634,6 +634,59 @@ void parse_url(char *url, char **hostname, char **port, char** path)
 }
 
 
+//////////////Chapter 7/////////////////
+/*
+
+    @Brief: Creates the required TCP socket for a server, listening on host and port. 
+    This function will set up the required addrinfo structure, calls socket(), bind(),
+    and listen().
+
+   @Args:
+    *host : The local address to listen on
+    *port: The local port to listen on.
+
+    @Returns:
+        int socket: A passive listen socket ready to accept connections.
+
+*/
+int create_server_socket(const char* host, const char *port)
+{
+    TRACE_ENTER();
+    printf("Configuring local address ...\n");
+    struct addrinfo hints, *bind_address;
+    memset(&hints, 0, sizeof(hints));
+    hints.ai_family = AF_UNSPEC;    //AF_INET;
+    hints.ai_socktype = SOCK_STREAM;
+    hints.ai_flags = AI_PASSIVE;        //tell getaddrinfo() that this address will be used for a passive listening socket.
+
+    //find all listening addresses.
+    getaddrinfo(host, port, &hints, &bind_address);
+    
+    printf("Creating socket ...\n");
+    int socket_listen = socket(bind_address->ai_family, bind_address->ai_socktype, bind_address->ai_protocol);
+    int error_num = errno;
+    if(!handle_socket_err("socket", socket_listen, error_num))
+        return 1;    
+
+    printf("Binding socket to local address ...\n");
+    int result = bind(socket_listen, bind_address->ai_addr, bind_address->ai_addrlen);
+    error_num = errno;
+    if(!handle_socket_err("bind", result, error_num))
+        return 1;
+
+    freeaddrinfo(bind_address);
+    printf("Listening ...\n");
+    result = listen(socket_listen, 10);
+    error_num = errno;
+    if(result < 0)
+    {
+        if(!handle_socket_err("listen", result, error_num))
+        return 1;
+    }
+    
+    TRACE_EXIT();
+    return socket_listen;
+}
 
 
 #endif //NET_LIB_Hdisplay how to send 

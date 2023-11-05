@@ -7,7 +7,7 @@
 
 */
 
-#include "../../netlib.h"
+#include "../../../netlib.h"
 #include <ctype.h>
 
 void usage(char *msg)

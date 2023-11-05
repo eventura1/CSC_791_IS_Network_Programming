@@ -1,4 +1,4 @@
-#include "../../netlib.h"
+#include "../../../netlib.h"
 
 
 int main(int argc, char *argv[])
@@ -20,7 +20,10 @@ int main(int argc, char *argv[])
     //client offers.
     //hints.ai_family = AF_UNSPEC;  
 
-    hints.ai_socktype = SOCK_DGRAM;
+    hints.ai_socktype = SOCK_STREAM;
+    // char *dst_host = argv[1];
+    // char *dst_port = argv[2];
+
     int result = 0;
     if( getaddrinfo(argv[1], argv[2], &hints, &remote_host))
     {

@@ -6,7 +6,7 @@
     and the program prints that IP address using getnameinfo() for the text conversion.
 */
 
-#include "../../netlib.h"
+#include "../../../netlib.h"
 
 int main(int argc, char *argv[])
 {

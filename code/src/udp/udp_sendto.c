@@ -1,4 +1,4 @@
-#include "../../netlib.h"
+#include "../../../netlib.h"
 
 int main(int argc, char *argv[])
 {

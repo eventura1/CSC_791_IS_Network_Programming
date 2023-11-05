@@ -1,5 +1,10 @@
-//As always, we'll start by including our helper library.
-#include "../../netlib.h"
+/*
+    web_get is a simple HTTP web client that connects to a remote host and performs 
+    a GET request for the given resource.
+
+
+*/
+#include "../../../netlib.h"
 
 #define TIMEOUT 5.0         //handles a response taking too long.
 #define BUFFER_SIZE 2048

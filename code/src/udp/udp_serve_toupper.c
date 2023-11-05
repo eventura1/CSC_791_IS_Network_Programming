@@ -1,4 +1,4 @@
-#include "../../netlib.h"
+#include "../../../netlib.h"
 #include <ctype.h>
 
 int main()

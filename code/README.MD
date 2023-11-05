@@ -1,9 +1,14 @@
 Description:
 
+Compiling:
+include the following header file:
+#include "../../../netlib.h"
+
+
 
 Building the binaries:
 
-To compile both binaries:
+To compile all binaries:
     make
 
 To compile only the server binary:
@@ -12,7 +17,7 @@ To compile only the server binary:
 To compile only the client binary:
     make client
 
-To clean up and remove the compiled binaries:
+To clean up and remove all compiled binaries:
     make clean
 
 
