@@ -74,6 +74,13 @@ https_simple_debug: $(HTTPS_SRC)/https_simple.c
 	$(CC) $(HTTPS_SRC)/https_simple.c $(CFLAGS_SSL) -g -DDEBUG -o $(BIN_DIR)/https_simple_debug
 
 
+tls_time_server: $(HTTPS_SRC)/tls_time_server.c
+	$(CC) $(HTTPS_SRC)/tls_time_server.c $(CFLAGS_SSL) -o $(BIN_DIR)/tls_time_server
+
+tls_time_server_debug: $(HTTPS_SRC)/tls_time_server.c
+	$(CC) $(HTTPS_SRC)/tls_time_server.c $(CFLAGS_SSL) -g -DDEBUG -o $(BIN_DIR)/tls_time_server_debug
+	cp $(HTTPS_SRC)/key.pem $(BIN_DIR)/
+	cp $(HTTPS_SRC)/cert.pem $(BIN_DIR)/
 
 clean:
 	rm -f $(BIN_DIR)/*
