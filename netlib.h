@@ -374,6 +374,7 @@ int send_recv_loop(int socket_peer)
 }
 
 
+//Module 3 - TCP In depth
 int select_loop(int sockfd)
 {
     TRACE_ENTER();
@@ -497,6 +498,7 @@ int select_loop(int sockfd)
 
 */
 
+//Module 4 - UDP sockets.
 int udp_select_loop(int socket_listen)
 {
     TRACE_ENTER();
