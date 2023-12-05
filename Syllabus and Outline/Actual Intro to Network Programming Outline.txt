@@ -1,0 +1,35 @@
+1.	Provide a general timeline of major Independent Study progress.  Conclude with the delivery date of the final Independent Study summary report.
+
+This is the actual outline of the topics I covered during the semester
+
+1.	Introduction to Network Concepts, Protocols and Utilities (1 weeks).
+	•	Researching and understanding network protocols specifications / headers: TCP and UDP.
+	•	Capturing and analyzing network traffic.
+
+2. Sockets Programming: The Berkley/POSIX sockets API using the C/C++ programming language. (6 weeks).
+	•	Introduction to Sockets and their types.
+	•	IPv4 vs IPv6.
+	•   Learning how to navigate the socket API, documentation, man pages, etc.
+	•	Socket Structures
+	•	Socket API and Programming interfaces.
+	•	Client-Server Communication using TCP and UDP sockets.
+	•	Handling socket errors and exceptions.
+
+During the first 3 weeks of the course I was doing cross-platform network programming but that added a lot of complexity given due to library support across the different
+systems, having to account for diffrent error types and bugs. These hurdles took time away from the actual learning and I decided to switch to learning socket prorgamming
+on the Linux operating systems. Once I was able to sort that out I got back on track.
+
+3. Intro to Web protocols and programming. Likely using Python (4 weeks).
+	•	HTTP
+	•	HTTPS, TLS/SSL, OpenSSL.
+	•	DNS
+
+4. Intro Network Data representation (2 weeks).
+	•	Data Serialization and de-serialization.
+	•	XML and JSON.
+	•	Protobufs
+
+Briefly covered this topics, not a lot of time writing actual code but understanding how they work and reading through the documentation and design of Protobufs.
+
+
+7. Final Report (1-2 week). To be delivered during finals’ week.

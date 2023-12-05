@@ -1,0 +1,6 @@
+1. Write an implementation of the TCP server program covered in chapter 3 using poll or epoll().
+
+2. Add the ability to handle partial send()s.
+	1. Add it to the program developed in the exercise above or
+	2. Add it to the TCP server/clients we write as part of this module.
+	

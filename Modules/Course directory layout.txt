@@ -1,0 +1,52 @@
+Folder layout:
+
+Course Modules
+	Module # - contains all the notes and files for the given module.
+		Word - Contains .docx versions of the notes.
+		Notes - Contains .txt or .md versions of the notes. might have errors since those were my scratch-pads / rough drafts.
+		PDF - Contains .pdf versions of the notes.
+		Code - Contains source code for the applications written for the given module.
+
+
+
++---Module 1 - Networking Review
+|   +---PDF
+|   +---word
+|   \---Notes
++---Module 2 - Intro to Sockets
+|   +---PDF
+|   +---Notes
+|   +---Word
+|   \---code
++---Module 3 - TCP Sockets
+|   +---PDF
+|   +---code
+|   |   +---tcp_server
+|   |   \---tcp_client
+|   +---notes
+|   \---Word
++---Module 4 - UDP Sockets
+|   +---PDF
+|   +---Notes
+|   +---code
+|   |   \---udp
+|   \---Word
++---Module 5 - DNS and Name Resolution
++---Module 6 - HTTP.md
+|   +---PDF
+|   +---Notes
+|   +---code
+|   |   +---web_server
+|   |   \---web_client
+|   \---Word
++---Module 7 - HTTPS and Encryption
+|   +---PDF
+|   +---Notes
+|   +---Word
+|   \---code
+|       \---https
+\---Module 8 - Data Serialization and Additional Topics
+    +---Notes
+    +---code
+    +---PDF
+    \---Word
