@@ -8,11 +8,11 @@ TCP_CLIENT = $(SRC_DIR)/tcp_client
 TCP_SERVER = $(SRC_DIR)/tcp_server
 WEB_CLIENT = $(SRC_DIR)/web_client
 WEB_SERVER = $(SRC_DIR)/web_server
-UDP = $(SRC_DIR)/udp
-DNS_SRC = $(SRC_DIR)/dns
-HTTPS_SRC = $(SRC_DIR)/https
+UDP = 		 $(SRC_DIR)/udp
+DNS_SRC = 	 $(SRC_DIR)/dns
+HTTPS_SRC =  $(SRC_DIR)/https
 
-#all: server client showip
+all: server server_loop client tcpclient tcpserver_multiplex udpclient1 udp_recvfrom udp_sendto webget showip lookup webserver https_simple tls_time_server udp_server_to_upper
 
 server: $(TCP_SERVER)/server.c
 	$(CC) $(CFLAGS) -o $(BIN_DIR)/server $(TCP_SERVER)/server.c
@@ -30,7 +30,7 @@ tcpclient_debug: $(TCP_CLIENT)/tcpclient.c
 	$(CC) $(CFLAGS) -g -DDEBUG -o $(BIN_DIR)/tcpclient $(TCP_CLIENT)/tcpclient.c
 
 tcpserver_multiplex: $(TCP_SERVER)/tcpserver_multiplex.c
-	$(CC) $(CFLAGS) -o $(BIN_DIRHTTPS_SRC)/tcpserver_multiplex $(TCP_SERVER)/tcpserver_multiplex.c
+	$(CC) $(CFLAGS) -o $(BIN_DIR)/tcpserver_multiplex $(TCP_SERVER)/tcpserver_multiplex.c
 
 tcpserver_multiplex_debug: $(TCP_SERVER)/tcpserver_multiplex.c
 	$(CC) $(CFLAGS) -g -DDEBUG -o $(BIN_DIR)/tcpserver_multiplex_debug $(TCP_SERVER)/tcpserver_multiplex.c
@@ -44,8 +44,8 @@ udp_recvfrom: $(UDP)/udp_recvfrom.c
 udp_sendto: $(UDP)/udp_sendto.c
 	$(CC) $(CFLAGS) -o $(BIN_DIR)/udp_sendto $(UDP)/udp_sendto.c	
 
-udp_serve_toupper: $(UDP)/udp_serve_toupper.c
-	$(CC) $(CFLAGS) -o $(BIN_DIR)/udp_serve_toupper $(UDP)udp_serve_toupper.c	
+udp_server_to_upper: $(UDP)/udp_server_to_upper.c
+	$(CC) $(CFLAGS) -o $(BIN_DIR)/udp_server_to_upper $(UDP)/udp_server_to_upper.c	
 
 webget: $(WEB_CLIENT)/web_get.c
 	$(CC) $(CFLAGS) -o $(BIN_DIR)/webget $(WEB_CLIENT)/web_get.c
@@ -59,20 +59,17 @@ showip: $(DNS_SRC)/showip.c
 lookup: $(DNS_SRC)/lookup.c
 	$(CC) $(CFLAGS) -o $(BIN_DIR)/lookup $(DNS_SRC)/lookup.c
 
-
 webserver_debug: $(WEB_SERVER)/web_server.c
 	$(CC) $(CFLAGS) -g -DDEBUG -o $(BIN_DIR)/web_server_debug $(WEB_SERVER)/web_server.c
 
 webserver: $(WEB_SERVER)/web_server.c
 	$(CC) $(CFLAGS) -o $(BIN_DIR)/webserver $(WEB_SERVER)/web_server.c
 
-
 https_simple: $(HTTPS_SRC)/https_simple.c
 	$(CC) $(HTTPS_SRC)/https_simple.c $(CFLAGS_SSL) -o $(BIN_DIR)/https_simple 
 
 https_simple_debug: $(HTTPS_SRC)/https_simple.c
 	$(CC) $(HTTPS_SRC)/https_simple.c $(CFLAGS_SSL) -g -DDEBUG -o $(BIN_DIR)/https_simple_debug
-
 
 tls_time_server: $(HTTPS_SRC)/tls_time_server.c
 	$(CC) $(HTTPS_SRC)/tls_time_server.c $(CFLAGS_SSL) -o $(BIN_DIR)/tls_time_server
